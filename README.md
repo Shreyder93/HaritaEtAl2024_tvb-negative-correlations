@@ -1,6 +1,6 @@
 ## The role of inhibition in fMRI resting-state negative correlations 
 
-## Shreyas Harita <sup>1, 2</sup>, Davide Momi <sup>2, 3</sup>, Sorenza P. Bastiaens <sup>1, 2</sup>, Zheng Wang <sup>2</sup>, John D. Griffiths <sup>1, 2, 4, 5, **</sup>
+## Shreyas Harita <sup>1, 2</sup>, Davide Momi <sup>2, 3</sup>, Zheng Wang <sup>2</sup>, Sorenza P. Bastiaens <sup>1, 2</sup>, John D. Griffiths <sup>1, 2, 4, 5, **</sup>
 
 ### Affiliations:  
 
