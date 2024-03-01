@@ -4,11 +4,11 @@
 
 ### Affiliations:  
 
-1 = Institute of Medical Science, University of Toronto  
-2 = Krembil Centre for Neuroinformatics, Centre for Addiction and Mental Health (CAMH), Toronto  
-3 = Unit of Neuroimaging and Neurointervention, Department of Neurological and Neurosensorial Sciences, AOUS, 53100, Siena, Italy
-4 = Department of Physiology, University of Toronto  
-5 = Department of Psychiatry, University of Toronto  
+1 = Institute of Medical Science, University of Toronto    
+2 = Krembil Centre for Neuroinformatics, Centre for Addiction and Mental Health (CAMH), Toronto    
+3 = Unit of Neuroimaging and Neurointervention, Department of Neurological and Neurosensorial Sciences, AOUS, 53100, Siena, Italy  
+4 = Department of Physiology, University of Toronto    
+5 = Department of Psychiatry, University of Toronto    
 ** = Corresponding Author  
 
 ### Highlights:  
