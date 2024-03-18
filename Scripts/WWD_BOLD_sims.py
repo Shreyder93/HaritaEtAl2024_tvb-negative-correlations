@@ -22,9 +22,9 @@ from tvb.datatypes.time_series import TimeSeriesRegion
 ### ========================================================================================================================================
 
 # NOTES:
-# The purpose of this script is to brute force our way through various combinations of parameter values based on the 2-D HCP Deco et al., 2014 model to try to understand which combinations of values leads to decent negative correlations ...
+# This script aims to manipulate the W_i and *lambda* values to study how increasing them affects negative correlations. 
 
-# This script will look at W_I (external input scaling factor inhibitory population), noise and G (global scaling factor) for ONE subject ...
+# This script will look at W_I (external input scaling factor inhibitory population), and lambda (feed-forward inhibition) for ONE subject ...(and then repeat the process for the other subjects).
 
 ### ========================================================================================================================================
 
@@ -101,8 +101,8 @@ def run_rww_sim_pcc_test(con, G, regime, dt, simlen, noise_term):
     res = sim.run(simulation_length=simlen)
     (Sts, Ss),(Bts,Bs) = res
 
-    # Bts and Sts contain 2 sets of data -- one excitatory and one inhibitory? ask JG. 
-    # Regardless, you need split the 2 sets of data and store them seprately, as this model uses 2 neuronal popn. types.
+    # Bts and Sts contain 2 sets of data -- one excitatory and one inhibitory.
+    # Therefore, you need to split the 2 data sets and store them separately, as this model uses 2 neuronal popn. types.
     
     test_Bs = np.squeeze(Bs)
     test_Ss = np.squeeze(Ss)
@@ -136,7 +136,7 @@ def run_rww_sim_pcc_test(con, G, regime, dt, simlen, noise_term):
     FC_i = np.corrcoef(np.squeeze(tsr_i.data).T) 
 #     savemat('FC_' + str(G) + '_' + str(simlen) + '.mat', {'B': Bs, 'FC': FC})
 
-    # Take triangular upper part of connectivity matrices and compute pearson correlations
+    # Take the triangular upper part of connectivity matrices and compute Pearson correlations
     pcc_FC_e = np.corrcoef(HCP_FC[mask], FC_e[mask])[0, 1]
     pcc_SC_e = np.corrcoef(HCP_SC[mask], FC_e[mask])[0, 1]
 
@@ -202,21 +202,16 @@ _pconn_img2RL = nib.load(pconn2RL)
 _pconn_dat2RL = _pconn_img2RL.get_data()
 _test_pconn = (_pconn_dat1LR + _pconn_dat1LR + _pconn_dat2LR + _pconn_dat2RL)/4
 
-# An alternate version of this is to use only 1 resting-state run for each subject ... more neg corrs. Averaging like we've done above reduces overall number of neg corrs. 
+# An alternate version of this is to use only 1 resting-state run for each subject ... more neg corrs. Averaging like we've done above reduces the overall number of negative corrs. 
 
 HCP_FC1 = _test_pconn.copy()
 HCP_FC = HCP_FC1[parcs][:,parcs]
-
-# for a single rs scan ... decided to go with REST1_LR ...
-
-# HCP_FC_single_rs = _pconn_dat1LR.copy()
-
 
 print('FC setup done!')
 
 # -------------------------------------------------------------------------------------------------------------------------------------
 
-# Tract Lengths -->  irrelevant ... doing it so it doesn't give error, lazy to correct, but not lazy to type this comment apparently!
+# Tract Lengths -->  irrelevant ... doing it so it doesn't give an error, lazy to correct, but not lazy to type this comment!
 
 tract_lengths = np.loadtxt(ShreyVB_path + "/tract_lengths.txt")
 tract_lengths = tract_lengths[parcs][:,parcs]
@@ -289,7 +284,7 @@ test_df_B_i = np.arange(1)
 test_df_S_i = np.arange(1)
 test_tsr_i = np.arange(1)
 
-# 5 minute simlen 
+# 20-minute simlen 
 test_pcc_FC_e, test_pcc_SC_e, test_df_B_e, test_df_S_e, test_tsr_e, test_pcc_FC_i, test_pcc_SC_i, test_df_B_i, test_df_S_i, test_tsr_i = run_rww_sim_pcc_test(HCP_con, Gs, regime, 0.5, 1200000, mynoise)
 
 print("Finished running simulation ...")
@@ -320,13 +315,7 @@ print(". \n")
 
 out_dir = '/external/rprshnas01/netdata_kcni/jglab/Data/Shrey/Improved_WWD_HCP_model_runs/Simulations_dir/WW_sims_w_BOLD'
 
-# np.savetxt(out_dir + "/dummy_sim_W_I_{0}_lambda_{1}_G_val_{2}_sub_{3}_20min_S_trial_{4}_sc_multi_{5}.txt".format(value_W_I, value_lambda, value_Gs, sub_id, trial_number, value_str_conn_multiplier), FC_sim_best_test)
-
-# np.savetxt(out_dir + "/sim_W_I_{0}_lambda_{1}_G_val_{2}_sub_{3}_20min_S_trial_{4}_sc_multi_{5}.txt".format(value_W_I, value_lambda, value_Gs, sub_id, trial_number, value_str_conn_multiplier), test_df_S_e)
-
-# np.savetxt(out_dir + "/dummy_WW_BOLD_W_I_{0}_lambda_{1}_sub_{2}_20min_trial_{3}.txt".format(value_W_I, value_lambda, sub_id, trial_number), B_FC_sim_best_test)
-
-# These trials are alrady with optimal G vals!
+# These trials are already with optimal G vals!
 
 np.savetxt(out_dir + "/WW_BOLD_W_I_{0}_lambda_{1}_sub_{2}_20min_trial_{3}.txt".format(value_W_I, value_lambda, sub_id, trial_number), B_FC_sim_best_test)
 
