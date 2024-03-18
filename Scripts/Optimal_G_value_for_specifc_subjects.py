@@ -152,7 +152,7 @@ parcs = np.arange(0,200,1)
 # -------------------------------------------------------------------------------------------------------------------------------------
 
 # 5 Hz
-regime = {'J_N': 0.18, 'J_i': 1.03, 'W_e': 1, 'W_i': 0.9} 
+regime = {'J_N': 0.18, 'J_i': 1.03, 'W_e': 1, 'W_i': 0.7} # optimal G value at default parameter values for 5 Hz firing rate. 
 
 # -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -209,7 +209,7 @@ print('FC setup done!')
 
 ### ========================================================================================================================================
 
-# Tract Lengths -->  irrelevant ... doing it so it doesn't give error, lazy to correct, but not lazy to type this comment apparently!
+# Tract Lengths -->  irrelevant ... doing it so it doesn't give an error, lazy to correct, but not lazy to type this comment!
 
 tract_lengths = np.loadtxt(ShreyVB_path + "/tract_lengths.txt")
 tract_lengths = tract_lengths[parcs][:,parcs]
@@ -261,9 +261,7 @@ print('Built HCP_con!')
 
 print('Running model ... ')
 
-Gs = np.arange(20, 60, 0.5)
-# Gs = np.arange(40, 45, 0.1)
-# Gs = np.arange(37, 39, 1)
+Gs = np.arange(20, 60, 0.5) # The range of G values with step increments. 
 
 test_pcc_FC_e = [None]*len(Gs)
 test_pcc_SC_e = [None]*len(Gs)
@@ -285,6 +283,8 @@ for iG, G in enumerate(Gs):
     elif(iG == round((len(Gs)/2))):
         print("Half-way ...")        
     test_pcc_FC_e[iG], test_pcc_SC_e[iG], test_df_B_e[iG], test_df_S_e[iG], test_tsr_e[iG], test_pcc_FC_i[iG], test_pcc_SC_i[iG], test_df_B_i[iG], test_df_S_i[iG], test_tsr_i[iG] = run_rww_sim_pcc_test(HCP_con, G, regime, 0.5, 300000, mynoise)
+
+# the simlen above is 30000 msec (5 min). However, the actual RWW simulations are 1200000 msec (20 min). But the optimal G value obtained at 5 minutes simlen has the same effect at simlen 20 minutes.  
     
 print("Finished Running Gs sweep !")    
 
