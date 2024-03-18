@@ -23,9 +23,9 @@ from tvb.datatypes.time_series import TimeSeriesRegion
 
 # NOTES:
 
-# The purpose of this script is to run a control analysis with a “control” variable, from the excitatory population to show that changing that control variable, doesn’t affect negative correlations.
+# The purpose of this script is to run a control analysis with a “control” variable, from the excitatory population to study the effect of changing W_e on negative correlations.
 
-# These 'control' variables are W_e (exc input scaling weight, aka, the opposite of W_i) and w_p, which is feed back excitation.
+# The 'control' variable is W_e (excitatory input scaling weight, aka, the opposite of W_i).
 
 ### ========================================================================================================================================
 
@@ -97,8 +97,8 @@ def run_rww_sim_pcc_test(con, G, regime, dt, simlen, noise_term):
     res = sim.run(simulation_length=simlen)
     (Sts, Ss),(Bts,Bs) = res
 
-    # Bts and Sts contain 2 sets of data -- one excitatory and one inhibitory? ask JG. 
-    # Regardless, you need split the 2 sets of data and store them seprately, as this model uses 2 neuronal popn. types.
+    # Bts and Sts contain 2 sets of data -- one excitatory and one inhibitory. 
+    # Regardless, you need to split the 2 sets of data and store them separately, as this model uses 2 neuronal popn. types.
     
     test_Bs = np.squeeze(Bs)
     test_Ss = np.squeeze(Ss)
@@ -132,7 +132,7 @@ def run_rww_sim_pcc_test(con, G, regime, dt, simlen, noise_term):
     FC_i = np.corrcoef(np.squeeze(tsr_i.data).T) 
 #     savemat('FC_' + str(G) + '_' + str(simlen) + '.mat', {'B': Bs, 'FC': FC})
 
-    # Take triangular upper part of connectivity matrices and compute pearson correlations
+    # Take triangular upper part of connectivity matrices and compute Pearson correlations
     pcc_FC_e = np.corrcoef(HCP_FC[mask], FC_e[mask])[0, 1]
     pcc_SC_e = np.corrcoef(HCP_SC[mask], FC_e[mask])[0, 1]
 
@@ -198,21 +198,16 @@ _pconn_img2RL = nib.load(pconn2RL)
 _pconn_dat2RL = _pconn_img2RL.get_data()
 _test_pconn = (_pconn_dat1LR + _pconn_dat1LR + _pconn_dat2LR + _pconn_dat2RL)/4
 
-# An alternate version of this is to use only 1 resting-state run for each subject ... more neg corrs. Averaging like we've done above reduces overall number of neg corrs. 
+# An alternate version of this is to use only 1 resting-state run for each subject ... more negative corrs. Averaging like we've done above reduces the overall number of negative corrs. 
 
 HCP_FC1 = _test_pconn.copy()
 HCP_FC = HCP_FC1[parcs][:,parcs]
-
-# for a single rs scan ... decided to go with REST1_LR ...
-
-# HCP_FC_single_rs = _pconn_dat1LR.copy()
-
 
 print('FC setup done!')
 
 # -------------------------------------------------------------------------------------------------------------------------------------
 
-# Tract Lengths -->  irrelevant ... doing it so it doesn't give error, lazy to correct, but not lazy to type this comment apparently!
+# Tract Lengths -->  irrelevant ... doing it so it doesn't give an error, lazy to correct, but not lazy to type this comment!
 
 tract_lengths = np.loadtxt(ShreyVB_path + "/tract_lengths.txt")
 tract_lengths = tract_lengths[parcs][:,parcs]
@@ -268,7 +263,7 @@ print('Running model ... ')
 
 Gs = value_Gs
 
-regime = {'J_N': 0.18, 'J_i': 1.03, 'W_e': value_W_E} 
+regime = {'J_N': 0.18, 'J_i': 1.03, 'W_e': value_W_E} # only change W_e values
 
 D1 = 0.01 # default
 mynoise = noise.Additive(nsig=__((D1**2)/2),noise_seed=np.random.randint(0,100))
@@ -285,7 +280,7 @@ test_df_B_i = np.arange(1)
 test_df_S_i = np.arange(1)
 test_tsr_i = np.arange(1)
 
-# 5 minute simlen 
+# 20-minute simlen 
 test_pcc_FC_e, test_pcc_SC_e, test_df_B_e, test_df_S_e, test_tsr_e, test_pcc_FC_i, test_pcc_SC_i, test_df_B_i, test_df_S_i, test_tsr_i = run_rww_sim_pcc_test(HCP_con, Gs, regime, 0.5, 1200000, mynoise)
 
 print("Finished running simulation ...")
