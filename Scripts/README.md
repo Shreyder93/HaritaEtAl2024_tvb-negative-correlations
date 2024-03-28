@@ -4,9 +4,10 @@ Here you can find all the code used to analyze the data and arrive at the result
 
 There are two types of scripts here:  
 
-1) Python Code - (files ending in '.py')  
+1) Code - (files ending in '.py', '.sh')  
 
-These scripts contain code that carries out the G sweep for the RWW (and JR) model. The code for running the simulations in TVB with the RWW (and JR) model can also be found here.   
+The '.sh' file contains code that parcellates empirical HCP data (.sh file)
+The '.py' files carry out a G sweep for the RWW (and JR) model. The code for running the simulations in TVB with the RWW (and JR) model can also be found in the corresponding '.py' files. 
 
 2) Jupyter Notebooks - (files ending in '.ipynb')  
 
