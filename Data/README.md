@@ -6,7 +6,7 @@ More information about the Human Connectome Project (HCP) and the data releases 
 
 For more information, please refer to the *Methods* section of the manuscript. 
 
-The subject IDs of the 24 subjects from the HCP database can be found below (M: male; F: female):
+The subject IDs of the 24 subjects from the HCP database can be found below (M: male [14]; F: female[10]):
 
 1) 100610 (M)  
 2) 102513 (M)  
