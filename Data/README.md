@@ -6,6 +6,16 @@ More information about the Human Connectome Project (HCP) and the data releases 
 
 For more information, please refer to the *Methods* section of the manuscript. 
 
+The SC weights folder contains the structural connectivity weights used for the modelling analysis. 
+
+The Simulation_Decoupling_analysis contains the data for the simulations without J<sub>NMDA</sub> and J<sub>i</sub>, including increasing W<sub>I</sub> and W<sub>E</sub>.
+
+The Simulation_control_analysis contains the data for the simulations that increase W<sub>E</sub>.
+
+The Simulation_increasing_inhibiton contains the data for the simulations that increase W<sub>I</sub> and &lambda;.
+
+
+
 The subject IDs of the 24 subjects from the HCP database can be found below (M: male [14]; F: female [10]):
 
 1) 100610 (M)  
@@ -32,3 +42,4 @@ The subject IDs of the 24 subjects from the HCP database can be found below (M: 
 22) 158136 (M)  
 23) 173435 (F)  
 24) 182739 (F)  
+
