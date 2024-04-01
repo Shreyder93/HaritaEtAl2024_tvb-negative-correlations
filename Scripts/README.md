@@ -6,7 +6,7 @@ Here you can find all the relevant code used to analyze the data and arrive at t
    
 2) The `Optimal_G_value_for_specific_subjects.py` script sweeps through a range of G values (global scaling parameter), revealing how G influences the dynamics of the model. This exploration sheds light on G's impact on simulated brain dynamics, including synchronization, information flow, and network connectivity. The G sweep is crucial for navigating the parameter space and identifying the optimal G value that aligns the simulated neural population dynamics with real rs-fMRI data. This iterative parameter optimization enhances the model's fidelity in replicating empirical observations, providing a more accurate representation of underlying neural processes.
 
-3) The `WWD_BOLD_sims.py` script generates the simulated resting-state BOLD time series using the TVB Python library (see *Methods*). This script can manipulate the inhibitory parameters to generate the corresponding outputs found in the *Data* folder.
+3) The `WWD_BOLD_sims.py` script generates the simulated resting-state BOLD time series using the TVB Python library (see *Methods*). This script can manipulate the inhibitory parameters (*&lambda; and W<sub>I</sub>*) to generate the corresponding outputs in the *Data* folder.
 
 4) The `Control_analysis_rWW.py` script does the same thing *3* except it does so for the excitatory parameter - W<sub>E</sub>.
 
